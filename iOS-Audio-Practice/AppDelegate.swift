@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFAudio
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -13,6 +14,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // 告诉app支持后台播放
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(.playback)
+            try session.setActive(true)
+        } catch {
+        }
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
         let navi = UINavigationController(rootViewController: ViewController())
         navi.navigationBar.isHidden = true

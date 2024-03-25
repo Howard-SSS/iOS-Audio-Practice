@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     lazy var avplayerBtn: UIButton = {
-        let avplayerBtn = UIButton(frame: .init(x: 0, y: 0, width: 100, height: 50))
+        let avplayerBtn = UIButton(frame: .init(x: 0, y: 200, width: 100, height: 50))
         avplayerBtn.setTitle("AVPlayer", for: .normal)
         avplayerBtn.setTitleColor(.black, for: .normal)
         avplayerBtn.addTarget(self, action: #selector(touchavplayerBtn), for: .touchUpInside)
@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(avplayerBtn)
     }
 

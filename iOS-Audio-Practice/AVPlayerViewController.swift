@@ -99,6 +99,7 @@ class AVPlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         view.addSubview(tableView)
         view.addSubview(timeLab)
         view.addSubview(slider)
@@ -262,7 +263,7 @@ extension AVPlayerViewController: UITableViewDelegate, UITableViewDataSource {
                 // 拖拽期间不处理
                 return
             }
-            guard let playItem = player.currentItem else {
+            guard let playItem = player.currentItem, playItem.duration.timescale != 0 else {
                 return
             }
             let current = CMTimeGetSeconds(time)
