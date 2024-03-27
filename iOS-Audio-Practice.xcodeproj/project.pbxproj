@@ -15,6 +15,7 @@
 		3940FDCB2BB0179C0098D45B /* MoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3940FDCA2BB0179C0098D45B /* MoreExtension.swift */; };
 		3940FDCD2BB017C60098D45B /* AVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3940FDCC2BB017C60098D45B /* AVPlayerViewController.swift */; };
 		3946949C2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3946949B2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift */; };
+		39691E112BB451EB0035524D /* RecorderMeterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39691E102BB451EB0035524D /* RecorderMeterAlertView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3940FDCA2BB0179C0098D45B /* MoreExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreExtension.swift; sourceTree = "<group>"; };
 		3940FDCC2BB017C60098D45B /* AVPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerViewController.swift; sourceTree = "<group>"; };
 		3946949B2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioRecorderPlayerViewController.swift; sourceTree = "<group>"; };
+		39691E102BB451EB0035524D /* RecorderMeterAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderMeterAlertView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				3940FDCA2BB0179C0098D45B /* MoreExtension.swift */,
 				3940FDCC2BB017C60098D45B /* AVPlayerViewController.swift */,
 				3946949B2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift */,
+				39691E102BB451EB0035524D /* RecorderMeterAlertView.swift */,
 			);
 			path = "iOS-Audio-Practice";
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 				3946949C2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift in Sources */,
 				3940FDCD2BB017C60098D45B /* AVPlayerViewController.swift in Sources */,
 				3940FDB72BB016B80098D45B /* AppDelegate.swift in Sources */,
+				39691E112BB451EB0035524D /* RecorderMeterAlertView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

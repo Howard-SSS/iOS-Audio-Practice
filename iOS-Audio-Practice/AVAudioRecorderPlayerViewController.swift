@@ -31,6 +31,10 @@ class AVAudioRecorderPlayerViewController: UIViewController {
     
     var durationTimer: Timer?
     
+    var meters: [Int] = []
+    
+    var meterTimer: Timer?
+    
     var dataPath: URL {
         var path: URL!
         if #available(iOS 16.0, *) {
@@ -49,6 +53,8 @@ class AVAudioRecorderPlayerViewController: UIViewController {
         }
         return ret
     }
+    
+    var meterAlertView: RecorderMeterAlertView?
     
     lazy var naviView: UIView = {
         let naviView = UIView(frame: .init(x: 0, y: 0, width: view.width, height: 200))
@@ -181,7 +187,7 @@ class AVAudioRecorderPlayerViewController: UIViewController {
                 datas.append(model)
             }
             datas.sort { item1, item2 in
-                item1.title.compare(item2.title) == .orderedDescending
+                item1.keepTime.compare(item2.keepTime) == .orderedDescending
             }
             self.datas = datas
             tableView.reloadData()
@@ -197,7 +203,7 @@ class AVAudioRecorderPlayerViewController: UIViewController {
             recorder = try AVAudioRecorder(url: newFileName(), settings: [
                 AVFormatIDKey : kAudioFormatMPEG4AAC,
                 AVSampleRateKey : 44100.0,
-                AVNumberOfChannelsKey : 1,
+                AVNumberOfChannelsKey : 2,
                 AVEncoderAudioQualityKey : NSNumber(value: AVAudioQuality.medium.rawValue)
             ])
             recorder?.delegate = self
@@ -263,6 +269,31 @@ class AVAudioRecorderPlayerViewController: UIViewController {
         durationTimer?.invalidate()
         durationTimer = nil
     }
+    
+    func startGetMeter() {
+        meters = []
+        let meterAlertView = RecorderMeterAlertView(frame: .init(x: 0, y: naviView.maxY, width: view.width, height: 250))
+        view.addSubview(meterAlertView)
+        self.meterAlertView = meterAlertView
+        let meterTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) {timer in
+            guard timer.isValid, let recorder = self.recorder else {
+                return
+            }
+            recorder.updateMeters()
+            let meter = recorder.averagePower(forChannel: 1)
+            self.meters.append(Int(meter + 160))
+            self.meterAlertView?.updateMeter(meters: self.meters)
+        }
+        RunLoop.current.add(meterTimer, forMode: .common)
+        self.meterTimer = meterTimer
+    }
+    
+    func endGetMeter() {
+        meterTimer?.invalidate()
+        meterTimer = nil
+        meterAlertView?.removeFromSuperview()
+        meterAlertView = nil
+    }
 }
 
 // MARK: - 模型
@@ -320,6 +351,7 @@ extension AVAudioRecorderPlayerViewController {
             recorder?.stop()
             canRecoderNext = false
             recordBtn.isSelected = false
+            endGetMeter()
         } else { // 暂停 -> 录制中
             if !canRecoderNext {
                 return
@@ -329,6 +361,7 @@ extension AVAudioRecorderPlayerViewController {
             }
             recorder?.record()
             recordBtn.isSelected = true
+            startGetMeter()
         }
     }
     
