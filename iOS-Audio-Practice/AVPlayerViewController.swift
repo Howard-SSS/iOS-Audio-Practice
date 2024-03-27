@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import MediaPlayer
 
 class AVPlayerViewController: UIViewController {
 
@@ -243,6 +244,7 @@ extension AVPlayerViewController: UITableViewDelegate, UITableViewDataSource {
                 case .readyToPlay:
                     slider.maximumValue = Float(CMTimeGetSeconds(playerItem.duration))
                     slider.value = 0
+                    updateMedia(duration: CMTimeGetSeconds(playerItem.duration))
                     self.player.play()
                     break
                 case .unknown:
@@ -273,6 +275,33 @@ extension AVPlayerViewController: UITableViewDelegate, UITableViewDataSource {
         }
         startBtn.isSelected = true
         slider.isUserInteractionEnabled = true
+    }
+}
+
+extension AVPlayerViewController {
+    
+    func updateMedia(duration: TimeInterval) {
+        // 锁屏窗口远程控制
+        let infoCenter = MPNowPlayingInfoCenter.default()
+        let artwork = MPMediaItemArtwork(boundsSize: .init(width: 300, height: 200)) { size in
+            guard let url = URL(string: "https://cn.bing.com/images/search?view=detailV2&ccid=FsuSgvSM&id=4F84C9D698F115B2F70BA9020EE0591C51802E94&thid=OIP.FsuSgvSMfaRHVDrcFN3hUgHaHz&mediaurl=https%3a%2f%2fmarketplace.canva.cn%2fdYGVE%2fMAB7k4dYGVE%2f2%2ftl%2fcanva-MAB7k4dYGVE.png&exph=550&expw=522&q=%e5%9b%be%e7%89%87%e9%93%be%e6%8e%a5&simid=608040715531546847&FORM=IRPRST&ck=F01CDB2BD6E04F0E8C6518A09A58F09A&selectedIndex=24&itb=1") else {
+                return UIImage()
+            }
+            do {
+                let data = try Data(contentsOf: url)
+                return .init(data: data) ?? UIImage()
+            } catch {
+                return UIImage()
+            }
+        }
+        infoCenter.nowPlayingInfo = [
+            MPMediaItemPropertyTitle : "歌曲名",
+            MPMediaItemPropertyArtist : "歌手名",
+            MPMediaItemPropertyPlaybackDuration : NSNumber(value: duration),
+            MPNowPlayingInfoPropertyElapsedPlaybackTime : NSNumber(value: 10),
+            MPMediaItemPropertyArtwork : artwork
+        ]
+        print(infoCenter.playbackState.rawValue)
     }
 }
 

@@ -14,6 +14,7 @@
 		3940FDC32BB016B90098D45B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3940FDC12BB016B90098D45B /* LaunchScreen.storyboard */; };
 		3940FDCB2BB0179C0098D45B /* MoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3940FDCA2BB0179C0098D45B /* MoreExtension.swift */; };
 		3940FDCD2BB017C60098D45B /* AVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3940FDCC2BB017C60098D45B /* AVPlayerViewController.swift */; };
+		3946949C2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3946949B2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		3940FDC42BB016B90098D45B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3940FDCA2BB0179C0098D45B /* MoreExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreExtension.swift; sourceTree = "<group>"; };
 		3940FDCC2BB017C60098D45B /* AVPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerViewController.swift; sourceTree = "<group>"; };
+		3946949B2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAudioRecorderPlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				3940FDC42BB016B90098D45B /* Info.plist */,
 				3940FDCA2BB0179C0098D45B /* MoreExtension.swift */,
 				3940FDCC2BB017C60098D45B /* AVPlayerViewController.swift */,
+				3946949B2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift */,
 			);
 			path = "iOS-Audio-Practice";
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			files = (
 				3940FDBB2BB016B80098D45B /* ViewController.swift in Sources */,
 				3940FDCB2BB0179C0098D45B /* MoreExtension.swift in Sources */,
+				3946949C2BB2F8860073EDFF /* AVAudioRecorderPlayerViewController.swift in Sources */,
 				3940FDCD2BB017C60098D45B /* AVPlayerViewController.swift in Sources */,
 				3940FDB72BB016B80098D45B /* AppDelegate.swift in Sources */,
 			);
@@ -299,6 +303,7 @@
 				DEVELOPMENT_TEAM = C6TTF7VT5L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS-Audio-Practice/Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "应用程序需要使用麦克风，以提供更好的服务";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -327,6 +332,7 @@
 				DEVELOPMENT_TEAM = C6TTF7VT5L;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS-Audio-Practice/Info.plist";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "应用程序需要使用麦克风，以提供更好的服务";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
