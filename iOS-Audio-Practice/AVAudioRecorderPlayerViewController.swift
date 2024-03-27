@@ -195,9 +195,9 @@ class AVAudioRecorderPlayerViewController: UIViewController {
         recorder = nil
         do {
             recorder = try AVAudioRecorder(url: newFileName(), settings: [
-                AVFormatIDKey : NSNumber(value: kAudioFormatMPEG4AAC),
-                AVSampleRateKey : NSNumber(value: 44100.0),
-                AVNumberOfChannelsKey : NSNumber(value: 1),
+                AVFormatIDKey : kAudioFormatMPEG4AAC,
+                AVSampleRateKey : 44100.0,
+                AVNumberOfChannelsKey : 1,
                 AVEncoderAudioQualityKey : NSNumber(value: AVAudioQuality.medium.rawValue)
             ])
             recorder?.delegate = self
@@ -241,10 +241,10 @@ class AVAudioRecorderPlayerViewController: UIViewController {
                     maxNum = num
                 }
             }
-            return dataPath.appendingPathComponent("record-\(maxNum + 1).m4a")
+            return dataPath.appendingPathComponent("record-\(maxNum + 1).aac")
         } catch {
             print("[record/play] --- 获取新文件名错误：\(error)")
-            return dataPath.appendingPathComponent("record-0.m4a")
+            return dataPath.appendingPathComponent("record-0.aac")
         }
     }
     
