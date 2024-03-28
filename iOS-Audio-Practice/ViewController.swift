@@ -29,11 +29,22 @@ class ViewController: UIViewController {
         return recordPlayerBtn
     }()
     
+    lazy var engineBtn: UIButton = {
+        let engineBtn = UIButton(frame: .init(x: recordPlayerBtn.maxX + 10, y: 200, width: 100, height: 50))
+        engineBtn.layer.borderColor = UIColor.gray.cgColor
+        engineBtn.layer.borderWidth = 1
+        engineBtn.setTitle("engine", for: .normal)
+        engineBtn.setTitleColor(.black, for: .normal)
+        engineBtn.addTarget(self, action: #selector(touchEngineBtn), for: .touchUpInside)
+        return engineBtn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(avplayerBtn)
         view.addSubview(recordPlayerBtn)
+        view.addSubview(engineBtn)
     }
 
     @objc func touchavplayerBtn() {
@@ -42,6 +53,10 @@ class ViewController: UIViewController {
     
     @objc func touchRecordPlayerBtn() {
         navigationController?.pushViewController(AVAudioRecorderPlayerViewController(), animated: true)
+    }
+    
+    @objc func touchEngineBtn() {
+        navigationController?.pushViewController(AVAudioEngineViewController(), animated: true)
     }
 }
 
