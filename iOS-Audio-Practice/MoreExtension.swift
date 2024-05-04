@@ -14,19 +14,39 @@ class MoreExtension: NSObject {
 extension UIView {
     
     var width: CGFloat {
-        CGRectGetWidth(frame)
+        set {
+            frame = .init(x: minX, y: minY, width: newValue, height: height)
+        }
+        get {
+            CGRectGetWidth(frame)
+        }
     }
     
     var height: CGFloat {
-        CGRectGetHeight(frame)
+        set {
+            frame = .init(x: minX, y: minY, width: width, height: newValue)
+        }
+        get {
+            CGRectGetHeight(frame)
+        }
     }
     
     var minX: CGFloat {
-        CGRectGetMinX(frame)
+        set {
+            frame = .init(x: newValue, y: minY, width: width, height: height)
+        }
+        get {
+            CGRectGetMinX(frame)
+        }
     }
     
     var minY: CGFloat {
-        CGRectGetMinY(frame)
+        set {
+            frame = .init(x: minX, y: newValue, width: width, height: height)
+        }
+        get {
+            CGRectGetMinY(frame)
+        }
     }
     
     var maxX: CGFloat {

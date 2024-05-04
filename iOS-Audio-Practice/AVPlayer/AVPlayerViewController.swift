@@ -75,6 +75,12 @@ class AVPlayerViewController: UIViewController {
         return repeatBtn
     }()
     
+    lazy var videoView: APPlayerVideoView = {
+        let videoView = APPlayerVideoView(frame: .init(x: 0, y: 40, width: view.width, height: 300))
+        videoView.setVideo(resource: .init(name: "红色血脉", url: .init(string: "http://v3.huanqiucdn.cn/d1db0086vodtranscq1400174353/866b67d23701925920798981508/v.f30.mp4")!))
+        return videoView
+    }()
+    
     var isDraging: Bool = false
     
     let items: [AudioItem] = [
@@ -101,7 +107,8 @@ class AVPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(tableView)
+//        view.addSubview(tableView)
+        view.addSubview(videoView)
         view.addSubview(timeLab)
         view.addSubview(slider)
         view.addSubview(previousBtn)
