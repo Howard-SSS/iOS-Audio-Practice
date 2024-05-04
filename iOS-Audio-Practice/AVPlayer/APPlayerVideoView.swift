@@ -204,7 +204,7 @@ open class APPlayerVideoView: UIView {
     @objc func videoGestureHandle(_ gesture: UILongPressGestureRecognizer) {
         let state = gesture.state
         if state == .began {
-            perform(#selector(rateHandle), with: nil, afterDelay: 0.2)
+            perform(#selector(rateHandle), with: nil, afterDelay: 0.1)
             let startPoint = gesture.location(in: handleView)
             gestureState = .none(startPoint: startPoint)
         } else if state == .changed {
@@ -227,11 +227,12 @@ open class APPlayerVideoView: UIView {
             @unknown default:
                 break
             }
+            let newPoint = gesture.location(in: handleView)
             switch gestureState {
             case .brightness(brightness: _, startPoint: _):
-                luminanceHandle(gesture)
+                luminanceHandle(newPoint: newPoint)
             case .volume(volume: _, startPoint: _):
-                volumeHandle(gesture)
+                volumeHandle(newPoint: newPoint)
             @unknown default:
                 break
             }
@@ -264,44 +265,30 @@ open class APPlayerVideoView: UIView {
         }
     }
     
-    @objc func luminanceHandle(_ gesture: UILongPressGestureRecognizer) {
+    @objc func luminanceHandle(newPoint: CGPoint) {
         print("调整亮度")
-        let state = gesture.state
-        if state == .began {
-
-        } else if state == .changed {
-            guard let startGestureValue = startGestureValue, let model = model else {
-                return
-            }
-            let newPoint = gesture.location(in: handleView)
-            let offsetY = newPoint.y - startGestureValue.point.y
-            let offsetBrightness = offsetY / (handleView.height * 0.5)
-            let value = model.controlBrightnessValue(CGFloat(startGestureValue.value) - offsetBrightness)
-            self.model?.setBrightness(value)
-            
-            brightnessLayer.updateValue(Float(value))
-        } else if state == .ended || state == .failed {
+        guard let startGestureValue = startGestureValue, let model = model else {
+            return
         }
+        let offsetY = newPoint.y - startGestureValue.point.y
+        let offsetBrightness = offsetY / (handleView.height * 0.5)
+        let value = model.controlBrightnessValue(CGFloat(startGestureValue.value) - offsetBrightness)
+        self.model?.setBrightness(value)
+        
+        brightnessLayer.updateValue(Float(value))
     }
     
-    @objc func volumeHandle(_ gesture: UILongPressGestureRecognizer) {
+    @objc func volumeHandle(newPoint: CGPoint) {
         print("调整音量")
-        let state = gesture.state
-        if state == .began {
-
-        } else if state == .changed {
-            guard let startGestureValue = startGestureValue, let model = model else {
-                return
-            }
-            let newPoint = gesture.location(in: handleView)
-            let offsetY = newPoint.y - startGestureValue.point.y
-            let offsetVolume = Float(offsetY / (handleView.height * 0.5))
-            let value = model.controlVolumeValue(startGestureValue.value - offsetVolume)
-            self.model?.setVolume(value)
-            
-            volumeLayer.updateValue(value)
-        } else if state == .ended || state == .failed {
+        guard let startGestureValue = startGestureValue, let model = model else {
+            return
         }
+        let offsetY = newPoint.y - startGestureValue.point.y
+        let offsetVolume = Float(offsetY / (handleView.height * 0.5))
+        let value = model.controlVolumeValue(startGestureValue.value - offsetVolume)
+        self.model?.setVolume(value)
+        
+        volumeLayer.updateValue(value)
     }
     
     @objc func controlHandle(isHidden: NSNumber) {
@@ -323,7 +310,7 @@ open class APPlayerVideoView: UIView {
     }
     
     @objc func valueChangeBySlider() {
-        model?.duration = .init(value: CMTimeValue(slider.value), timescale: 1)
+        model?.update(playedTime: .init(value: CMTimeValue(slider.value), timescale: 1))
     }
     
     // MARK: -
@@ -342,6 +329,7 @@ open class APPlayerVideoView: UIView {
             case .unknown:
                 break
             case .readyToPlay:
+                weakSelf?.configTopView(model: model)
                 weakSelf?.configMiddleView()
                 weakSelf?.configBottomView(model: model)
                 weakSelf?.model?.play()
@@ -354,6 +342,10 @@ open class APPlayerVideoView: UIView {
             }
         }
         resetHiddenControlTimer()
+    }
+    
+    func configTopView(model: APPlayerVideoModel) {
+        videoNameLab.text = model.name
     }
     
     func configMiddleView() {

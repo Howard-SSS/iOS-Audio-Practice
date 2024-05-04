@@ -11,14 +11,14 @@ import AVFAudio
 import MediaPlayer
 
 class APPlayerVideoModel: NSObject {
-
-    private let name: String
     
-    private let url: URL
+    let name: String
+    
+    let url: URL
     
     let playerItem: AVPlayerItem
     
-    private let player: AVPlayer
+    let player: AVPlayer
     
     let playerLayer: AVPlayerLayer
         
@@ -45,12 +45,7 @@ class APPlayerVideoModel: NSObject {
     }
     
     var duration: CMTime {
-        set {
-            player.seek(to: newValue, toleranceBefore: .zero, toleranceAfter: .zero)
-        }
-        get {
-            playerItem.duration
-        }
+        playerItem.duration
     }
     
     // MARK: - 观察者对象
@@ -207,5 +202,9 @@ class APPlayerVideoModel: NSObject {
             brightness = 1
         }
         return brightness
+    }
+    
+    func update(playedTime: CMTime) {
+        player.seek(to: playedTime, toleranceBefore: .zero, toleranceAfter: .zero)
     }
 }
