@@ -91,3 +91,10 @@ extension UIView.AutoresizingMask {
     
     static var around: UIView.AutoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
 }
+
+extension NSObject {
+    
+    static func formatPrint(text: String) {
+        print("[\(type(of: self))-\(#function)-\(#line)]: \(text)")
+    }
+}
